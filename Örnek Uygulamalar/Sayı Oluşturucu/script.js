@@ -26,5 +26,12 @@ function createRandomNumber() {
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    if ( (min == max ) || Math.abs(min-max) == 1){
+      alert("Girilen iki sayı birbirine eşit veya aralarındaki fark 1 olamaz.");
+      return 0;
+    }
+    else{
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
 }
