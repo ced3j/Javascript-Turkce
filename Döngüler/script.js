@@ -56,3 +56,14 @@ for (let key in user) {
     console.log(user[key]);
 }
 
+
+
+// -------------------------------------------- While döngüsü
+
+var arabalar = ["Honda", "Mercedes", "Toyota", "Ford", "Fiat"];
+
+var i = 0;
+while (arabalar[i]) {
+    console.log(arabalar[i]);
+    i++;
+}
