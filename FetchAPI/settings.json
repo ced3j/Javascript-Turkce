@@ -1,0 +1,15 @@
+// bir object tanımlayalım
+{
+    "userName": "fakeUser",
+    "password": 1234,
+    "serverIP": "127.0.0.1",
+    "serverName": "google.com",
+    "isAuth": true,
+    "IDs": [
+        1,
+        2,
+        3,
+        4,
+        5
+    ]
+}
