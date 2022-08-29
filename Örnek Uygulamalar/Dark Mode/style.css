@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s;
+}
+
+.night {
+    background-color: #140b10;
+}
+
+.move {
+    transform: translateX(95px);
+}
+
+
+
+#button {
+    width: 140px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: rgb(173, 173, 173);
+    display: flex;
+    align-items: center;
+}
+
+#circle {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 40px;
+    margin-left: 3px;
+    cursor: pointer;
+    transition: all 0.4s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.none {
+    visibility: hidden;
+    position: absolute;
+}
+
+.fa-sun {
+    color: white;
+    font-size: 20px;
+}
+
+.fa-moon {
+    color: black;
+    font-size: 20px;
+}
