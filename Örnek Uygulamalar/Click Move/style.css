@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#box {
+    height: 50px;
+    width: 50px;
+    background-color: steelblue;
+    border-radius: 10px;
+    cursor: pointer;
+    position: absolute;
+    transition: all 0.3s;
+}
