@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        /*
+            Asenkron programlama modeli nedir?
+            Örneğin bir markette müşterisiniz ve sipariş verdiniz
+            Siparişinizi alana kadar kasanın önünde beklemeniz bütün sistemin yavaşlamasına
+            Kilitlenmesine sebep olacaktır çünkü o an ölü bir vakit geçmiş olur
+            Bir sonraki müşterinin siparişini verememesine sebep olursunuz
+
+            Olması gereken siparişinizi verirsiniz bir köşeye çekilir 
+            Beklersiniz siparişiniz hazırlandığı zaman gidip alırsınız 
+            Bu durumda kasalar asenkron çalışmış olur
+
+
+
+            Örnek: 
+
+
+                sync: 
+                    console.log(1);
+                    console.log(2);
+                    console.log(3);
+
+
+
+                async: 
+                    console.log(1)
+
+                    setTimeout(()=>{
+                        console.log(2);
+                    }, 2000);
+
+                    console.log(3);
+
+
+            Yukarıdaki sync örneğinde konsolda şöyle bir çıktı alırız:
+            1
+            2
+            3
+
+
+            asyn örneğinde iste
+            1
+            3
+            2
+
+            Çünkü orada olan olay şudur: önce 1 ekrana yazdırılır
+            Daha sonra program setTimeout ile karşılaşır ve en sondaki 2000 parametresini görünce o andan itibaren 2 saniye sonra
+            Bu satırı çalışması gerektiğini anlar
+            Fakat o 2 saniye içerisinde boş durmayıp console.log(3)ü çalıştırır
+            2 saniyenin sonuna gelindiğinde de console.log(2) çalışacaktır
+            
+        */
+    </script>
+</body>
+
+</html>

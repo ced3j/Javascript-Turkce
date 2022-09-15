@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        /*
+            Bu aşamada şunu anlamamız gerek
+            Örneğin bir restorana sipariş geliyor
+            Bu birinci adım
+            1- sipariş
+            2. adım ise "siparişin hazırlanması"
+            Daha sonra da belki 3. adım olarak siparişin teslim edilmesi olarak düşünebiliriz
+
+            1- sipariş
+            2- sipariş hazırlanması
+            3- sipariş teslimi
+
+            Şimdi mantıken bu adımların her biri 
+            Bir önceki adıma bağımlı
+            Yani 1. adım bitmeden 2. adım başlayamaz
+            İşte burada 1. adımın bittiğinin uyarısını nasıl göndeririz 
+            Nasıl kontrol ederiz bunlarla ilgileneceğiz
+
+
+            Şimdi ilk olarak bunu callback ile yapmaya çalışalım
+
+
+
+            ------------ Callback ------------
+
+
+            const login = (username, password, callback) => {
+                setTimeout(() => { 
+                    callback({username: username, email: "info@google.com"});
+                }, 1000);
+            }
+
+            const getPostsByUsername = (username, callback) => {
+                setTimeout(() =>{
+                    callback(["post1","post2","post3"]);
+                }, 2000) ;
+            }
+
+            const getPostDetails = (post, callback) => {
+                setTimeout(() => {
+                    callback("post details");
+                }, 1000);
+            }
+
+            login("Tesla","123", user=> {
+                console.log(user.username);
+                console.log(user.email);
+
+                getPostsByUsername(user.username, (posts) => {
+                    console.log(posts);
+
+                    getPostDetails(posts[0], (details) => {
+                        console.log(details);
+                    });
+                });
+            });
+            
+            
+            // burada bir login işlemini simüle ediyoruz
+            // gerçekçi olmak bakımından setTimeout koyuyoruz 
+            // Normalde de zaten veritabanı işlemleri ya da buna benzer aşamalar belirli bir süre vakit alacaktı
+
+
+        */
+    </script>
+</body>
+
+</html>

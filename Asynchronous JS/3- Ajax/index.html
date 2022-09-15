@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="container my-3">
+        <div class="row">
+
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script>
+
+        /*
+            Api nedir? --
+                Bize veri sağlayan bir servis, program olarak düşünebiliriz
+                Örneğin canlı olarak döviz kurlarını takip eden apiler var
+                Javascript projemizde bu verileri kullanmak istediğimizde
+                Http talebi göndererek direkt bu verileri alabiliyoruz
+                Veyahut filmler hakkında bilgi veren bir film sitesi geliştireceğiz
+                Piyasadaki bütün filmleri tek tek arayıp bulup veritabanımıza kaydedip ordan çekip... vs.
+                Yazarken bile bayağı uzadı işlemler
+                Oysa filmlere özel bir api bulabilirsek 3-5 kod satırı ile piyasadaki bütün filmleri çekebiliriz
+
+
+            AJAX --
+                Javascript uygulamasından bir servise talep gönderme sistemine ajax deniyor
+                Açılımı """Asynchronous JavaScript and XML"""
+                Bize gelen veri yapısı XLM türünde olacaktır
+                Bir de XML'e ek olarak JSON vardır
+                Javascript'te kullandığımız obje yapısının karşılığı denilebilir
+
+
+            Google ----> public apis ----> rest countries
+            https://restcountries.com
+                
+        */
+
+        function displayCountry(country) {
+            // istek gönderiyoruz
+            const request = new XMLHttpRequest();
+            request.open('GET', 'https://restcountries.com/v3.1/name/' + country);
+            // Servisten bir bilgi almak istediğimiz için GET methodu kullanıyoruz
+            // Eğer bilgi kaydetmek isteseydik POST yazacaktık
+            // 2. parametre olarak api urlsini yazıyoruz
+            request.send(); // Talebimizi servise gönderdik
+
+            // Gönderilen bu talep bir asenkron işlem olduğu için
+            // Ne zaman bittiğini biliyor olmamız gerek
+            // Bunu da bir callback ile karşılayacağız
+            // Yani biz burada bir süreç başlattık
+            // Süreç 1 saniye içinde bitecek mesela
+            // Ve bittiği anda da callback aracılığıyla diğer işlemi alabileceğiz
+
+            request.addEventListener("load", function () {
+                // load --> Gönderecek olduğunuz talep başarılı bir şekilde bitti mi? Bittikten sonra function içerisini çalıştır
+                const data = JSON.parse(this.responseText); // talebimize karşılık gelen bilginin responsetext parametresini aldık
+                // Bu aşamada data'nın string olduğunu görebiliriz
+                // Fakat biz string üzerinden parametre çağırma gibi işlemler yapamıyoruz
+                // Bunu yapabilmek için string'i json'a çevirmemiz gerekiyor ---> JSON NEDİR? ---> 118. satır
+
+                // responseText ile gelen bilgi JSON'dan JavaScript objesine çevrildi
+                console.log(typeof data); // object
+
+                // Şimdi elde ettiğimiz veriyi sayfa içinde göstermek için bir fonksiyon oluşturalım
+
+                setCountry(data[0]);
+
+            });
+        }
+
+        function setCountry(data) {
+            const html = `
+            <div class="col-3" style="width: 18rem;">
+                <div class="card h-100">
+                    <img src="${data.flags.png}" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">${data.name.common}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Population: ${data.population}</li>
+                        <li class="list-group-item">Capital: ${data.capital}</li>
+                        <li class="list-group-item">Language: ${Object.values(data.languages)}</li>
+                                                        <!-- data.languages tek başına bir object olduğu için --> 
+                                                        <!-- Object sınıfı üzerinden values'a ulaşıyoruz --> 
+                    </ul>
+                </div> 
+              </div>
+            `;
+
+
+            document.querySelector(".container .row").insertAdjacentHTML("beforeend", html);
+
+        }
+
+        displayCountry("turkey");
+        displayCountry("japan");
+
+        /*  --- JSON nedir? ---
+        Yaptığımız uygulamayı hangi dil ile yaparsak yapalım 
+        Ya da hangi platformda yaparsak yapalım
+        Database ile uygulamamız arasında bir servis olacak
+        Yani Api olacak
+        Database'den bilgiler servise object türünde aktarılacak
+        Fakat servisimiz bu object türünü her koşulda her dilde ve ortamda rahatça kullanabilmek için
+        Bunu JSON yapısına çevirecek
+
+        Mesela bir JS uygulaması geliştiriyoruz ve kullanıcıdan ödeme almamız gerekiyor
+        Ödemeyi almak için gerekli olan kodlar ise bankanın sorumluluğunda
+        Banka da haliyle kendi veritabanına doğrudan ulaşmaya izin vermeyeceği için
+        Bir api oluşturacak ve api'ye ulaşacak olan kişiye bir id ve pass verir
+        Bu bilgiler doğrultusunda kullanıcı da kredi kartı bilgisini servise(api) gönderir ve
+        Servisten gelecek olan cevabı bekler
+        Bu bilgi aktarımları tamamen JSON türünde yapılır 
+        Kısacası farklı platformlar arasında bir veri taşıma standartıdır JSON
+               
+
+        */
+
+    </script>
+</body>
+
+</html>
